@@ -1,3 +1,37 @@
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registrado!', reg))
+        .catch(err => console.log('Erro ao registrar:', err));
+    });
+  };
+
+const buscarLocalizacao = () => {
+  if ("geolocation" in navigator) {
+    // Opções para maior precisão (ativa o GPS do celular)
+    const opcoes = {
+      enableHighAccuracy: true, 
+      timeout: 5000,
+      maximumAge: 0
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      (posicao) => {
+        const { latitude, longitude } = posicao.coords;
+        alert(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        // Aqui você pode enviar para o seu backend FastAPI ou salvar no estado
+      },
+      (erro) => {
+        console.error("Erro ao obter localização:", erro.message);
+        alert("Por favor, ative a localização para usar esta função.");
+      },
+      opcoes
+    );
+  } else {
+    alert("Seu navegador não suporta geolocalização.");
+  }
+};
+
 async function searchCar() {
     try {
         const response = await fetch("https://api-carros-g79d.onrender.com/carros/aleatorio");
