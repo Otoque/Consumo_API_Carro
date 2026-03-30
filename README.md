@@ -22,7 +22,11 @@ carros-frontend<br>
 ├── index.html<br>
 ├── style.css<br>
 ├── script.js<br>
+├── icon.png.js<br>
+├── manifest.JSON<br>
+├── sw.js<br>
 └── README.md<br>
+
 
 ---
 
